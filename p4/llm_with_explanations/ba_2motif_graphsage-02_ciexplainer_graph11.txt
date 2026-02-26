@@ -1,0 +1,147 @@
+================================================================================
+GRAPH EXPLANATION ANALYSIS
+================================================================================
+
+Dataset: ba_2motif
+Model: graphsage-02
+Explainer: ciexplainer
+Graph Index: 11
+Prediction (sigmoid): 1.0000
+
+--------------------------------------------------------------------------------
+
+GRAPH STATISTICS
+----------------------------------------
+Number of nodes: 25
+Number of edges: [[ 0  0  0  0  1  1  1  2  2  2  2  2  2  2  2  2  2  3  4  5  5  6  6  6
+   7  8  9 10 11 11 12 12 13 14 15 16 17 18 19 20 20 20 20 21 21 21 22 22
+  23 23 24 24]
+ [ 1  2  6 20  0 11 19  0  3  4  5  7  8  9 12 13 18  2  2  2 14  0 10 16
+   2  2  2  6  1 17  2 15  2  5 12  6 11  2  1  0 21 23 24 20 22 24 21 23
+  20 22 20 21]]
+Number of edges: 52
+Average degree: 2.08
+Average clustering coefficient: 0.0600
+Average closeness centrality: 0.3212
+Total triangles in graph: 1
+
+--------------------------------------------------------------------------------
+
+PER-NODE FEATURE VECTORS
+----------------------------------------
+Degree vector (all nodes): [4, 3, 10, 1, 1, 2, 3, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 4, 3, 2, 2, 2]
+Triangle count vector (all nodes): [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1]
+Closeness centrality vector (all nodes): [0.5, 0.36923076923076925, 0.4897959183673469, 0.3333333333333333, 0.3333333333333333, 0.34285714285714286, 0.3582089552238806, 0.3333333333333333, 0.3333333333333333, 0.3333333333333333, 0.26666666666666666, 0.27906976744186046, 0.34285714285714286, 0.3333333333333333, 0.25806451612903225, 0.25806451612903225, 0.26666666666666666, 0.22018348623853212, 0.3333333333333333, 0.2727272727272727, 0.38095238095238093, 0.2891566265060241, 0.23076923076923078, 0.2857142857142857, 0.2857142857142857]
+
+--------------------------------------------------------------------------------
+
+EXPLANATION METRICS
+----------------------------------------
+iou: 0.6667
+accuracy: 0.9200
+
+--------------------------------------------------------------------------------
+
+GROUND TRUTH MOTIF
+----------------------------------------
+Ground truth nodes: [20, 21, 22, 23, 24]
+Number of nodes in motif: 5
+
+Node Details:
+Node     Degree     Triangles    Clustering   Closeness   
+--------------------------------------------------------
+20       4          1            0.1667       0.3810      
+21       3          1            0.3333       0.2892      
+22       2          0            0.0000       0.2308      
+23       2          0            0.0000       0.2857      
+24       2          1            1.0000       0.2857      
+
+--------------------------------------------------------------------------------
+
+EXPLAINER OUTPUT
+----------------------------------------
+Top-5 explanation nodes: [20, 22, 6, 24, 23]
+Number of predicted important nodes: 5
+
+Node Details (sorted by importance):
+Node     Score        Degree     Triangles    Clustering   Closeness   
+--------------------------------------------------------------------
+20       1.0000       4          1            0.1667       0.3810      
+22       0.9999       2          0            0.0000       0.2308      
+6        0.9939       3          0            0.0000       0.3582      
+24       0.9913       2          1            1.0000       0.2857      
+23       0.9876       2          0            0.0000       0.2857      
+
+--------------------------------------------------------------------------------
+
+OVERLAP ANALYSIS
+----------------------------------------
+Correctly identified nodes: [20, 22, 24, 23]
+Missed ground truth nodes: [21]
+False positive nodes: [6]
+
+True Positives: 4
+False Negatives: 1
+False Positives: 1
+
+================================================================================
+
+
+======================================================================
+PROMPT
+======================================================================
+You are analyzing why a Graph Neural Network (GNN) identified specific nodes as important for its prediction.
+
+TASK:
+
+You are NOT asked to explain why the graph is a "House".
+You are asked to explain whether the EXPLAINABLE NODES support that prediction.
+
+Rules:
+- Only discuss nodes in [6, 20, 22, 23, 24].
+- Do NOT discuss nodes that were not selected.
+- Do NOT explain the full graph structure.
+- Focus only on whether the selected nodes align with the "House" motif.
+
+Instructions:
+
+1. Identify which of the selected nodes belong to the listed structures.
+2. If selected nodes are part of a listed 4-cycle or 5-cycle, explain how that supports the "House" pattern.
+3. If selected nodes are isolated or not part of the listed structures, state that they do NOT support the prediction.
+4. Assess whether the explanation nodes meaningfully justify the "House" prediction.
+
+STRUCTURAL DEFINITIONS:
+
+CIRCLE PATTERN:
+Definition: A connected 5-node cycle
+
+
+HOUSE PATTERN:
+Definition: 4-cycle with triangle
+
+
+NONE PATTERN:
+The graph does not contain either the Circle or House structural motifs.
+
+
+GNN PREDICTION: "House"
+EXPLAINABLE NODES: [6, 20, 22, 23, 24]
+
+STRUCTURES DETECTED IN SUBGRAPH:
+Triangles:
+(20, 21, 24)
+
+4-Cycles:
+(20, 21, 22, 23)
+
+5-Cycles:
+(20, 21, 22, 23, 24)
+
+
+Write 4–6 analytical sentences.
+Explanation:
+
+======================================================================
+LLM EXPLANATION
+======================================================================
+The GNN predicted a "House" pattern, and we analyzed the explainable nodes. Node 20 is part of both triangles and 4-cycles, supporting the "House" pattern. Nodes 21, 22, and 23 form a 4-cycle within the 5-cycle, also supporting the "House" pattern. Node 24 is part of all three structures, further reinforcing the "House" prediction. The selected nodes meaningfully justify the "House" prediction by forming the required structural motifs. Therefore, the explainable nodes provide strong evidence for the GNN's "House" prediction.

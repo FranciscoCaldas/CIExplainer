@@ -1,0 +1,147 @@
+================================================================================
+GRAPH EXPLANATION ANALYSIS
+================================================================================
+
+Dataset: ba_2motif
+Model: graphsage-02
+Explainer: ciexplainer
+Graph Index: 8
+Prediction (sigmoid): 1.0000
+
+--------------------------------------------------------------------------------
+
+GRAPH STATISTICS
+----------------------------------------
+Number of nodes: 25
+Number of edges: [[ 0  0  0  0  0  1  1  1  1  1  1  1  1  2  2  3  3  4  4  5  5  6  7  8
+   9  9 10 11 11 11 12 13 14 15 16 17 18 19 20 20 20 20 21 21 21 22 22 23
+  23 24 24]
+ [ 1  5  7 10 14  0  2  4  9 11 12 15 18  1  3  2  6  1 13  0  8  3  0  5
+   1 17  0  1 16 19  1  4  0  1 11  9  1 11 20 21 23 24 20 22 24 21 23 20
+  22 20 21]]
+Number of edges: 51
+Average degree: 2.08
+Average clustering coefficient: 0.0667
+Average closeness centrality: 0.2494
+Total triangles in graph: 1
+
+--------------------------------------------------------------------------------
+
+PER-NODE FEATURE VECTORS
+----------------------------------------
+Degree vector (all nodes): [5, 8, 2, 2, 2, 2, 1, 1, 1, 2, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 5, 3, 2, 2, 2]
+Triangle count vector (all nodes): [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1]
+Closeness centrality vector (all nodes): [0.3760416666666666, 0.4700520833333333, 0.3269927536231884, 0.24260752688172044, 0.3133680555555555, 0.26860119047619047, 0.1880208333333333, 0.2593390804597701, 0.20326576576576574, 0.3133680555555555, 0.2593390804597701, 0.3269927536231884, 0.30083333333333334, 0.22790404040404041, 0.2593390804597701, 0.30083333333333334, 0.23502604166666666, 0.22790404040404041, 0.30083333333333334, 0.23502604166666666, 0.13333333333333333, 0.13333333333333333, 0.1111111111111111, 0.1111111111111111, 0.1111111111111111]
+
+--------------------------------------------------------------------------------
+
+EXPLANATION METRICS
+----------------------------------------
+iou: 0.6667
+accuracy: 0.9200
+
+--------------------------------------------------------------------------------
+
+GROUND TRUTH MOTIF
+----------------------------------------
+Ground truth nodes: [20, 21, 22, 23, 24]
+Number of nodes in motif: 5
+
+Node Details:
+Node     Degree     Triangles    Clustering   Closeness   
+--------------------------------------------------------
+20       5          1            0.3333       0.1333      
+21       3          1            0.3333       0.1333      
+22       2          0            0.0000       0.1111      
+23       2          0            0.0000       0.1111      
+24       2          1            1.0000       0.1111      
+
+--------------------------------------------------------------------------------
+
+EXPLAINER OUTPUT
+----------------------------------------
+Top-5 explanation nodes: [20, 22, 9, 24, 23]
+Number of predicted important nodes: 5
+
+Node Details (sorted by importance):
+Node     Score        Degree     Triangles    Clustering   Closeness   
+--------------------------------------------------------------------
+20       1.0000       5          1            0.3333       0.1333      
+22       1.0000       2          0            0.0000       0.1111      
+9        1.0000       2          0            0.0000       0.3134      
+24       1.0000       2          1            1.0000       0.1111      
+23       0.9999       2          0            0.0000       0.1111      
+
+--------------------------------------------------------------------------------
+
+OVERLAP ANALYSIS
+----------------------------------------
+Correctly identified nodes: [20, 22, 24, 23]
+Missed ground truth nodes: [21]
+False positive nodes: [9]
+
+True Positives: 4
+False Negatives: 1
+False Positives: 1
+
+================================================================================
+
+
+======================================================================
+PROMPT
+======================================================================
+You are analyzing why a Graph Neural Network (GNN) identified specific nodes as important for its prediction.
+
+TASK:
+
+You are NOT asked to explain why the graph is a "House".
+You are asked to explain whether the EXPLAINABLE NODES support that prediction.
+
+Rules:
+- Only discuss nodes in [9, 20, 22, 23, 24].
+- Do NOT discuss nodes that were not selected.
+- Do NOT explain the full graph structure.
+- Focus only on whether the selected nodes align with the "House" motif.
+
+Instructions:
+
+1. Identify which of the selected nodes belong to the listed structures.
+2. If selected nodes are part of a listed 4-cycle or 5-cycle, explain how that supports the "House" pattern.
+3. If selected nodes are isolated or not part of the listed structures, state that they do NOT support the prediction.
+4. Assess whether the explanation nodes meaningfully justify the "House" prediction.
+
+STRUCTURAL DEFINITIONS:
+
+CIRCLE PATTERN:
+Definition: A connected 5-node cycle
+
+
+HOUSE PATTERN:
+Definition: 4-cycle with triangle
+
+
+NONE PATTERN:
+The graph does not contain either the Circle or House structural motifs.
+
+
+GNN PREDICTION: "House"
+EXPLAINABLE NODES: [9, 20, 22, 23, 24]
+
+STRUCTURES DETECTED IN SUBGRAPH:
+Triangles:
+(20, 21, 24)
+
+4-Cycles:
+(20, 21, 22, 23)
+
+5-Cycles:
+(20, 21, 22, 23, 24)
+
+
+Write 4–6 analytical sentences.
+Explanation:
+
+======================================================================
+LLM EXPLANATION
+======================================================================
+The GNN predicted the presence of a "House" pattern. The explainable nodes [9, 20, 22, 23, 24] are analyzed to determine if they support this prediction. Node 20 is part of both triangles and the 4-cycle, which forms the foundation of the "House" pattern. Nodes 21, 22, and 23 form the 4-cycle within the larger 5-cycle, further supporting the "House" prediction. Node 24 completes the 5-cycle, reinforcing the presence of the "House" pattern. Overall, the selected nodes meaningfully justify the "House" prediction by forming the structural components necessary for this motif.

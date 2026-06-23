@@ -4,6 +4,10 @@
 
 CIExplainer is the official implementation accompanying the paper of the same name. It provides a framework for generating human-readable, causally-grounded explanations for predictions made by Graph Neural Networks (GNNs), combining subgraph-based structural explanations with large language model (LLM) narration.
 
+paper available at:
+https://arxiv.org/abs/2606.20747
+
+
 ---
 The framework supports both **node classification** and **graph classification** tasks. And provides Explanations for 5 different explanation Methods:
 RandomExplainer, GNNExplainer, PGExplainer, SubgraphX and CIExplainer (Ours).
